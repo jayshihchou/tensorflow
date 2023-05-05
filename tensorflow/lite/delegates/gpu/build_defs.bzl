@@ -24,4 +24,4 @@ def gpu_delegate_linkopts():
             "-lGLESv2",
         ],
         "//conditions:default": [],
-    }) + nativewindow_linkopts()
+    })

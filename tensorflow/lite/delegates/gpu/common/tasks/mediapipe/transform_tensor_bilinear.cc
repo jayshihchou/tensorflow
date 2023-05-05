@@ -70,7 +70,7 @@ std::string GetTransformTensorBilinearKernelCode(const OperationDef& op_def,
   c += "    float4 p1 = INIT_FLOAT4(0.0f);\n";
   c += "    float4 p2 = INIT_FLOAT4(0.0f);\n";
   c += "    float4 p3 = INIT_FLOAT4(0.0f);\n";
-  const auto src_tensor_type = op_def.src_tensors[0].storage_type;
+  const auto src_tensor_type = op_def.src_tensors[0].GetStorageType();
   const bool buffer_type = src_tensor_type == TensorStorageType::BUFFER ||
                            src_tensor_type == TensorStorageType::IMAGE_BUFFER;
   auto read_src = [&](const std::string& result, const std::string& xc,
@@ -119,7 +119,7 @@ GPUOperation CreateTransformTensorBilinear(
     const TransformTensorBilinearAttributes& attr) {
   GPUOperation op(definition);
   auto src_desc = definition.src_tensors[0];
-  src_desc.SetAddressMode(AddressMode::kZero);
+  // src_desc.SetAddressMode(AddressMode::kZero);
   op.AddSrcTensor("src_tensor", src_desc);
   op.AddSrcTensor("matrix_transform", definition.src_tensors[1]);
   op.AddDstTensor("dst_tensor", definition.dst_tensors[0]);
